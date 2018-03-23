@@ -1,0 +1,20 @@
+[
+	{
+		"name":"temp1",
+		"age":31,
+		"company":"comp1",
+		"language":"node.js"
+	},
+	{
+		"name":"temp2",
+		"age":28,
+		"company":"comp2",
+		"language":"react.js"
+	},
+	{
+		"name":"temp3",
+		"age":21,
+		"company":"comp3",
+		"language":"node.js"
+	}
+]
