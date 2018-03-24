@@ -1,3 +1,4 @@
+//crud man
 var http = require("http");
 var fs=require("fs");
 var path=require("path");
@@ -17,8 +18,8 @@ http.createServer(function(req,res){
 		});
 		req.on('end',function(){
 			//console.log(data);
-			var q=querystring.parse(data);
+			  q=querystring.parse(data);
 			console.log(q);
-		});
+		}); 
 	}
-}).listen(3000);
+}).listen(3000); 
