@@ -9,9 +9,8 @@ http.createServer(function(req,res){
 	MongoClient.connect(url,function(err,db){
 		if(err) throw err;
 		var dbo=db.db("college");
-		var query={daddress:"hell"};
 		//dbo.collection('students').findOne({},function(err,result){
-		dbo.collection('students').find(query).toArray(function(err,result){
+		dbo.collection('students').find({},{_id:false}).toArray(function(err,result){
 			if(err) throw err;
 			console.log(result);
 			res.writeHead(200,{"Content-Type":"text/html"});
