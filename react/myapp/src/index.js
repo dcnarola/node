@@ -1,26 +1,64 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+//import App from './App';
+import Const from './constructor';
 import Test from './check';
-import Comp from './comp';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+//ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Const />,document.getElementById('dd'));
 function tick(){
 ReactDOM.render(<Test />, document.getElementById('content'));
 }
-const coms={text:'this is the comment',author:{name:'dddddd',url:'http.com'}};
-ReactDOM.render(<Comp text={coms.text} author={coms.author}/>,document.getElementById('comps'));
 
-class Welcome extends React.Component {
-  
-  render() {
-  return(
-	<div><h1>hello : {this.props.name}</h1></div>
-  );
-  }
+function formatDate(date) {
+  return date.toLocaleDateString();
 }
-ReactDOM.render(<div><Welcome name="dd"/><Welcome name="ee"/><Welcome name="vv"/></div>,document.getElementById('dd'));
-setInterval(tick,5000);
+function Avatar(props){
+	return(
+		<img className="Avatar" src={props.author.avatarUrl} alt={props.author.name}/>
+	)
+}
+function Userinfo(props){
+	return(
+		<div className="UserInfo">
+		<Avatar author={props.user.author} />
+				<div className="UserInfo-name">
+					{props.user.author.name}
+				</div>
+		</div>
+	)
+}
+function Comment(props) {
+  return (
+    <div className="Comment">
+        <Userinfo user={props} />
+      <div className="Comment-text">{props.text}</div>
+      <div className="Comment-date">
+        {formatDate(props.date)}
+      </div>
+    </div>
+  );
+}
+
+const comment = {
+  date: new Date(),
+  text: 'I hope you enjoy learning React!',
+  author: {
+    name: 'Hello Kitty',
+    avatarUrl: 'http://placekitten.com/g/64/64',
+  },
+};
+ReactDOM.render(
+  <Comment
+    date={comment.date}
+    text={comment.text}
+    author={comment.author}
+  />,
+  document.getElementById('root')
+);
+
+
+//setInterval(tick,5000);
 registerServiceWorker();
