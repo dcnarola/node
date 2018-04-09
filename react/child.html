@@ -14,10 +14,15 @@
 	<script type="text/jsx">
 		var BComponent=React.createClass({
 			render:function(){
-				return(<h2>{this.props.user} eat {this.props.food}</h2>);
+				return(<div><h3>{this.props.user}</h3>
+					<p>{this.props.children}</p>
+				</div>);
 			}
 		});
-		React.render(<div><BComponent user="a1" food="bacon"/><BComponent user="a2" food="bhinda"/><BComponent user="a3" food="bffff"/></div>,document.getElementById('content'));
+		React.render(<div>
+					<BComponent user="a1">This is good</BComponent>
+					<BComponent user="a2">temp man</BComponent>
+					</div>,document.getElementById('content'));
 	</script>
 </body>
 </html> 
