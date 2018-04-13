@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person';
+import Datal from './datal';
 class App extends Component {
 	state={
-		persons:[{name:'mad max',age:22},{name:'2t',age:100},{name:'fff',age:250}]
+		persons:[{name:'mad max',age:22},{name:'2t',age:100},{name:'fff',age:250}],
+		projects:[{title:'t1',category:'c1'},{title:'t2',category:'c2'},{title:'t3',category:'c3'}]
 	}
 	
 	switchName = (newName) => {
@@ -34,6 +36,7 @@ class App extends Component {
   }
       return(
 			<div className="App">
+			<Datal projects={this.state.projects}/>
 			<button style={style} onClick={()=>this.switchName('maxi!!!')}>Switch name</button>
 		<Person 
 		name={this.state.persons[0].name} 

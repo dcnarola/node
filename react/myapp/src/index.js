@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 //import Const from './constructor';
+//import Event from './event';
 import Test from './check';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 //ReactDOM.render(<Const />,document.getElementById('dd'));
+//ReactDOM.render(<Event />,document.getElementById('root'));
 function tick(){
 ReactDOM.render(<Test />, document.getElementById('content'));
 }
