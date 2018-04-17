@@ -3,10 +3,44 @@ import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person';
 import Datal from './datal';
+import Addproject from './addproject';
+import uuid from 'uuid';
+import $ from 'jquery';
 class App extends Component {
 	state={
 		persons:[{name:'mad max',age:22},{name:'2t',age:100},{name:'fff',age:250}],
-		projects:[{title:'t1',category:'c1'},{title:'t2',category:'c2'},{title:'t3',category:'c3'}]
+		projects:[],
+		todos:[]
+	}
+	
+	getTodos(){
+		$.ajax({
+			url:'https://jsonplaceholder.typicode.com/todos',
+			dataType:'json',
+			cache:false,
+			success:function(data){
+				this.setState({todos:data},function(){
+					console.log(this.state);
+				});
+			}.bind(this),error:function(xhr,status,err){
+				console.log(err);
+			}
+		});
+	};
+	
+	getProjects(){
+		this.setState(
+		{projects:[{id:uuid.v4(),title:'t1',category:'Web Design'},{id:uuid.v4(),title:'t2',category:'Web Develop'},{id:uuid.v4(),title:'t3',category:'Mobile Develop'}]}
+		);
+	}
+	
+	componentWillMount(){
+		this.getProjects();
+		this.getTodos();
+	}
+	
+	componentDidMount(){
+		this.getTodos();
 	}
 	
 	switchName = (newName) => {
@@ -26,6 +60,19 @@ class App extends Component {
 		});
 	}
 	
+	handleAddproject(project){
+		let projects=this.state.projects;
+		projects.push(project);
+		this.setState({projects:projects});
+	}
+	
+	handleDeleteProject(id){
+		let projects=this.state.projects;
+		let index = projects.findIndex(x=> x.id === id);
+		projects.splice(index,1);
+		this.setState({projects:projects});
+	}
+	
   render() {
     //return React.createElement('div',{className:'App'},React.createElement('h1',null,'it works now'));
   const style={
@@ -36,7 +83,8 @@ class App extends Component {
   }
       return(
 			<div className="App">
-			<Datal projects={this.state.projects}/>
+			<Addproject addProject={this.handleAddproject.bind(this)}/>
+			<Datal projects={this.state.projects} onDelete={this.handleDeleteProject.bind(this)}/>
 			<button style={style} onClick={()=>this.switchName('maxi!!!')}>Switch name</button>
 		<Person 
 		name={this.state.persons[0].name} 
