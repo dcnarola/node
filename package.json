@@ -1,0 +1,26 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "training",
+  "main": "http.js",
+  "dependencies": {
+    "react-dom": "^16.3.1",
+    "react": "^16.3.1",
+    "mongodb": "^3.0.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "run",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dcnarola/node.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dcnarola/node/issues"
+  },
+  "homepage": "https://github.com/dcnarola/node#readme"
+}
