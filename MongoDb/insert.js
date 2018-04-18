@@ -8,7 +8,7 @@ var url='mongodb://localhost:27017/';
 http.createServer(function(req,res){
 	if(req.url==='/form'){
 		res.writeHead(200,{"Content-Type":"text/html"});
-		fs.createReadStream('./public/form.html','UTF-8').pipe(res);
+		fs.createReadStream('../public/form.html','UTF-8').pipe(res);
 	}
 	if(req.method==='POST'){
 		var data="";
