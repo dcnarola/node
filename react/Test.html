@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+       <meta charset="UTF-8">
+       <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+       <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+
+  </head>
+  <body>
+  <style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+	padding:20px 50px;
+}
+th{background-color:#ccc;}
+  </style>
+      <div id="root"></div>
+      <script type="text/babel">
+		function Head(props){
+			return(
+			   <div>
+			     <h2>{props.title}</h2>
+				 <p>{props.desc}</p>
+			   </div>
+			)
+		}
+		function Selection(props){
+			let Options=props.values.map(val => {
+				return <option key={val} value={val}>{val}</option>	
+			});
+		   return(
+				<div><h3>{props.title}</h3>
+			    <p>New only <input type="checkbox" value="Value_select" checked/></p>
+				<span>Select Type:</span>
+				<select>
+				  <option>All</option>
+				  {Options}
+				</select>
+				</div>
+		   )
+		}
+		function Model(props){
+		let item=props.items.map(row=>{
+		  return(
+			<div>
+			<tr>
+				<th>Year</th>
+				<th>Model</th>
+				<th>Price</th>
+				<th>Buy</th>
+			</tr>
+			<tr>
+			<td>{row.year}</td>
+			<td>{row.model}</td>
+			<td>{row.price}</td>
+			<td><button>Buy Now</button></td>
+			</tr></div>
+		  )
+		});
+		 return(
+			<div>
+			<h1>{props.heading}</h1>
+			<table border='1'>
+				{item}
+			</table>
+			</div>
+		 )
+		}
+		function Transporting(){
+			return(
+				<div>
+					<Head title="Welcome to react transportation" desc="The best place to buy vehicle online"/>
+					<Selection title="Choose Options" values={['Cars','Trucks','Convertibles']}/>
+					<Model heading="Cars" items={[{year:'2013',model:'A',price:'32000'},{year:'2011',model:'B',price:'4400'},{year:'2016',model:'B',price:'15500'}]}/>
+					<Model heading="Trucks" items={[{year:'2014',model:'D',price:'18000'},{year:'2013',model:'E',price:'5200'}]}/>
+					<Model heading="Convertibles" items={[{year:'2009',model:'F',price:'2000'},{year:'2010',model:'G',price:'6000'},{year:'2012',model:'H',price:'12500'},{year:'2017',model:'M',price:'50000'}]}/>
+				</div>
+			)
+		}
+
+    ReactDOM.render(
+        <Transporting/>,
+        document.getElementById("root")
+    )
+      </script>
+    
+  </body>
+</html>

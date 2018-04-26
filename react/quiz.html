@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+       <meta charset="UTF-8">
+       <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+       <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+
+  </head>
+  <body>
+  <style>
+	.btn{width: 430px;display:inline-block;height: 50px;font-weight: bold;}
+	.left,.right{float:left;width:50%;text-align:center;}
+	.left h1{color:red;}
+	.right p{font-size:40px;}
+  </style>
+      <div id="root"></div>
+      <script type="text/babel">
+	var ques=[
+		{question:'What is the capital of England?',option1:'London',option2:'Liverpool',option3:'Manchester',option4:'Chelsea',correct:'London'},
+		{question:'How many continents are there in world?',option1:'4',option2:'3',option3:'5',option4:'7',correct:'7'},
+		{question:'Name the author of The kite runner?',option1:'Stephen king',option2:'Khaled Hosseini',option3:'Salman Rushdie',option4:'Arvind Adiga',correct:'Khaled Hosseini'},
+		{question:'Who is supposed to direct the next bond film?',option1:'Sam Mendes',option2:'Danny Boyle',option3:'Alex Garland',option4:'Guy Ritchie',correct:'Danny Boyle'},
+		{question:'Capital city of JAPAN?',option1:'seoul',option2:'manila',option3:'Jakarta',option4:'Tokyo',correct:'Tokyo'},
+		{question:'Capital city of INDIA?',option1:'New Delhi',option2:'Mumbai',option3:'Kochi',option4:'Hyderabad',correct:'New Delhi'},
+		{question:'Which film won the best film oscar?',option1:'Dunkirk',option2:'The shape of water',option3:'Phantom Thread',option4:'Three Billboards',correct:'The shape of water'},
+		{question:'Namibia comes in which continent?',option1:'Africa',option2:'Asia',option3:'Australia',option4:'Europe',correct:'Africa'},
+		{question:'8*8?',option1:'64',option2:'63',option3:'38',option4:'44',correct:'64'},
+		{question:'3-iron film is from?',option1:'Japan',option2:'South-Korea',option3:'India',option4:'China',correct:'South-Korea'},
+	];
+	var length=ques.length;
+	console.log(length);
+		//alert(ques[0].question+'-'+ques[0].op1+'-'+ques[1].op2);
+		class Quiz extends React.Component{
+			constructor(props){
+				super(props);
+				this.state={value:0,correct:0,incorrect:0};
+				this.clickHandler=this.clickHandler.bind(this);
+			}
+			
+			clickHandler(option){
+				//alert(ques[this.state.value].correct);
+				//alert(option);
+				//var last=this.state.value+1;
+				//if(last==length){
+				//	alert('ho gaya');
+				//}else{
+					
+					var last=this.state.value+1;
+					if(last==length){
+						alert('finished');
+					}else{
+						if(option==ques[this.state.value].correct)
+						{
+							this.setState((prevState,props)=>{
+								return {correct:prevState.correct + 1}
+							});
+						}else{
+							this.setState((prevState,props)=>{
+								return {incorrect:prevState.incorrect + 1}
+							});
+						}
+						this.setState((prevState,props)=>{
+							return {value:prevState.value + 1}
+						});
+					}	
+				//}
+				//this.setState({value:1});
+			}
+			
+			render(){
+				return(
+					<div>
+					<div className="left">	
+					<h1>{ques[this.state.value].question}</h1>
+			<button className="btn" onClick={this.clickHandler.bind(this,ques[this.state.value].option1)}>{ques[this.state.value].option1}</button>
+			<button className="btn" onClick={this.clickHandler.bind(this,ques[this.state.value].option2)}>{ques[this.state.value].option2}</button>
+			<button className="btn" onClick={this.clickHandler.bind(this,ques[this.state.value].option3)}>{ques[this.state.value].option3}</button>
+			<button className="btn" onClick={this.clickHandler.bind(this,ques[this.state.value].option4)}>{ques[this.state.value].option4}</button>
+			</div>
+						<div className="right">
+							<div className="status"><h1>Correct answers:</h1> <p>{this.state.correct}</p></div>
+							<div className="status"><h1>InCorrect answers:</h1> <p>{this.state.incorrect}</p></div>
+						</div>
+					</div>
+				)
+			}
+		};	
+
+    ReactDOM.render(
+        <Quiz/>,
+        document.getElementById("root")
+    )
+      </script>
+    
+  </body>
+</html>
