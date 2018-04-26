@@ -30,26 +30,15 @@
 	];
 	var length=ques.length;
 	console.log(length);
-		//alert(ques[0].question+'-'+ques[0].op1+'-'+ques[1].op2);
 		class Quiz extends React.Component{
 			constructor(props){
 				super(props);
-				this.state={value:0,correct:0,incorrect:0};
+				this.state={value:0,correct:0,incorrect:0,status:0};
 				this.clickHandler=this.clickHandler.bind(this);
 			}
 			
 			clickHandler(option){
-				//alert(ques[this.state.value].correct);
-				//alert(option);
-				//var last=this.state.value+1;
-				//if(last==length){
-				//	alert('ho gaya');
-				//}else{
-					
-					var last=this.state.value+1;
-					if(last==length){
-						alert('finished');
-					}else{
+				   if(this.state.status==0){
 						if(option==ques[this.state.value].correct)
 						{
 							this.setState((prevState,props)=>{
@@ -60,12 +49,19 @@
 								return {incorrect:prevState.incorrect + 1}
 							});
 						}
+				   }
+					
+					var last=this.state.value+1;
+					console.log(last+'--'+length);
+					if(last==length){
+						this.setState((prevState,props)=>{
+						     return {status:1}
+						});
+					}else{
 						this.setState((prevState,props)=>{
 							return {value:prevState.value + 1}
 						});
 					}	
-				//}
-				//this.setState({value:1});
 			}
 			
 			render(){
