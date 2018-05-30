@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8">
+   <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+   <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+
+</head>
+<body>
+<style>
+.btn{height:35px;margin:15px 0;width:175px;}.text,select{height:35px;}.head{border:1px solid #000;width:60%;}
+.content{display: inline-block;margin: 10px 20px;width: 110px;text-align: center;}
+</style>
+  <div id="root"></div>
+  <script type="text/babel">        
+	class App extends React.Component{
+		constructor(props){
+			super(props);
+			this.state={fname:'',lname:'',activity:'',check:'',list:[],c1:false,c2:false,c3:false};
+			this.fChange=this.fChange.bind(this);
+			this.lChange=this.lChange.bind(this);
+			this.selectChange=this.selectChange.bind(this);
+			this.checkValues=this.checkValues.bind(this);
+			this.cb1=this.cb1.bind(this);this.cb2=this.cb2.bind(this);this.cb3=this.cb3.bind(this);
+		}
+		
+		fChange(event){
+							let val=event.target.value;
+							this.setState((prevState,props)=>{
+								return {fname:val}
+							});
+		}
+		
+					lChange(event){
+							let val=event.target.value;
+							this.setState((prevState,props)=>{
+								return {lname:val}
+							});
+		}
+					
+					selectChange(event){
+						let val=event.target.value;
+							this.setState((prevState,props)=>{
+								return {activity:val}
+							});
+					}
+					
+					removeItem(fname) {
+						let index = this.state.list.findIndex(x=> x.fname === fname);
+						this.state.list.splice(index,1);
+						this.setState((prevState,props)=>{
+							return {list:this.state.list}
+						});
+					  }
+					  
+					cb1(event){
+						let cst=event.target.checked;
+						let vl=event.target.value;
+						this.setState((prevState,props)=>{
+							return {c1:cst,check:prevState.check+vl}
+						});
+					}
+					cb2(event){
+						let cst=event.target.checked;
+						let vl=event.target.value;
+						this.setState((prevState,props)=>{
+							return {c2:cst,check:prevState.check+vl}
+						});
+					}
+					cb3(event){
+						let cst=event.target.checked;
+						let vl=event.target.value;
+						this.setState((prevState,props)=>{
+							return {c3:cst,check:prevState.check+vl}
+						});
+					}
+					checkValues(){
+						let vals=this.state.list;
+						vals.push({fname:this.state.fname,lname:this.state.lname,activity:this.state.activity,check:this.state.check});
+						this.setState((prevState,props)=>{
+							return {list:vals}
+						});
+						this.setState({fname: '', lname: '',activity:'',check:'',c1:false,c2:false,c3:false});
+					}
+					
+		render(){
+			return(
+				<div>
+				<form>
+					<div>
+					<p>First name:</p>
+					<input className="text" type="text" value={this.state.fname} name="firstname" onChange={this.fChange}/>
+					</div>
+					<div>
+					<p>Last Name:</p>
+					<input className="text" type="text" value={this.state.lname} name="lastname" onChange={this.lChange}/>
+					</div>
+					<div>
+						<p>Select Activity:</p>
+						<select value={this.state.activity} name="activity" onChange={this.selectChange}>
+							<option>Select Activity</option>
+							<option>Cooking</option>
+							<option>Science Lab</option>
+							<option>Painting</option>
+							<option>Swimming</option>
+						</select>
+					</div>
+					<div>
+					<p>Check all that apply:</p>
+					 <input type="checkbox" checked={this.state.c1} onChange={this.cb1} value="a"/> a) Dietary Restrictions
+					<br/>
+					 <input type="checkbox" checked={this.state.c2} onChange={this.cb2} value="b"/> b) Physcal Restrictions
+					<br/>
+					<input type="checkbox" checked={this.state.c3} onChange={this.cb3} value="c"/> c) Medical Needs 
+					</div>
+					<input className="btn" type="button" value="Submit" onClick={this.checkValues}/>
+					</form>
+			<List values={this.state.list} deleteItem={this.removeItem.bind(this)}/>
+				</div>
+			)
+		}
+	};
+			function List(props){
+				if(props.values!=''){
+					let listings=props.values.map(val=>{
+								return(
+									<div className="head">
+									<div className="content"><button onClick={()=>props.deleteItem(val.fname)}>Remove</button></div>
+									<div className="content">{val.fname}</div>
+									<div className="content">{val.lname}</div>
+									<div className="content">{val.activity}</div>
+									<div className="content">{val.check}</div>
+									</div>
+								) 
+							});
+					return(<div>
+							<div className="head">
+							<div className="content">Action</div>
+							<div className="content">First Name</div>
+							<div className="content">Last Name</div>
+							<div className="content">Activity</div>
+							<div className="content">Restrictions</div>
+							</div>
+							{listings}
+						</div>)
+				}else{
+					return(<div>Empty Values</div>)
+				}
+			}
+
+ReactDOM.render(
+	<App/>,
+	document.getElementById("root")
+)
+  </script>
+
+</body>
+</html>
